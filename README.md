@@ -4,6 +4,7 @@
 ```
 yarn install
 ```
+Rename ./public/index.example.html to index.html and provide your API url as "VUE_APP_API_BASE_URL"!
 
 ### Compiles and hot-reloads for development
 ```
