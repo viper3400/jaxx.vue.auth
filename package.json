@@ -1,5 +1,6 @@
 {
   "name": "@viper3400/jaxx.vue.auth",
+  "repository": "git://github.com/viper3400/jaxx.vue.auth.git",
   "version": "0.2.1",
   "private": true,
   "main": "./dist/jaxx-vue-auth.common.js",
