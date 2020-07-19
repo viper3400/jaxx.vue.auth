@@ -1,7 +1,7 @@
 {
   "name": "@viper3400/jaxx.vue.auth",
   "repository": "git://github.com/viper3400/jaxx.vue.auth.git",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": false,
   "main": "./dist/jaxx-vue-auth.common.js",
   "scripts": {
@@ -11,6 +11,9 @@
     "build-lib": "yarn run genversion && vue-cli-service build --target lib --name jaxx-vue-auth src/libexport.js",
     "genversion": "genversion ./src/plugins/version.js"
   },
+  "files": [
+    "dist/*"
+  ],
   "dependencies": {
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
