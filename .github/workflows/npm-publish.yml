@@ -17,6 +17,7 @@ jobs:
           node-version: 12
       - run: yarn --frozen-lockfile
       - run: yarn run lint
+      - run: yarn run build-lib
 
   publish-gpr:
     needs: build
@@ -28,6 +29,7 @@ jobs:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
       - run: yarn --frozen-lockfile
+      - run: yarn run build-lib
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
