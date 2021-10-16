@@ -5,7 +5,7 @@
       <p data-test="auth-state">{{authStateString}}</p>
       <p date-test="auth-sever-version" v-if="info">Server Version{{info}}</p>
     </section>
-    <section class="section">
+    <section class="section" v-if="authStateString != 'AUTH_AUTHENTICATED'">
       <h1 class="title">Log In</h1>
       <div class="field">
         <label class="label">Username</label>
@@ -19,6 +19,40 @@
           <input class="input" type="password" v-model="password" data-test="auth-password"/>
         </div>
       </div>
+    </section>
+    <section class="section" v-if="authStateString == 'AUTH_AUTHENTICATED'">
+      <h1 class="title">Post Request</h1>
+      <div class="field">
+        <label class="label">Url</label>
+        <div class="control">
+          <input class="input" type="text" v-model="url" data-test="auth-request-url"/>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Body</label>
+        <div class="control">
+          <input class="input" type="text" v-model="body" data-test="auth-request-body"/>
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control">
+            <button class="button is-secondary" @click="onPostClick" data-test="auth-button-post">Post</button>
+        </div>
+        <div class="control">
+            <button class="button is-secondary" @click="onGetClick" data-test="auth-button-get">Get</button>
+        </div>
+        <div class="control">
+            <button class="button is-secondary" @click="onPutClick" data-test="auth-button-put">Put</button>
+        </div>
+        <div class="control">
+            <button class="button is-secondary" @click="onDeleteClick" data-test="auth-button-delete">Delete</button>
+        </div>
+        <div class="control">
+            <button class="button is-secondary" @click="onCancelClick" data-test="auth-button-cancel">Cancel</button>
+        </div>
+      </div>
+    </section>
+    <section class="section">
       <div class="field is-grouped">
         <div class="control"  v-if="authStateString != 'AUTH_AUTHENTICATED'">
           <button class="button is-primary" @click="onLoginClick" data-test="auth-button-login">Log In</button>
@@ -43,7 +77,10 @@ export default {
     return {
       username: null,
       password: null,
-      info: null
+      info: null,
+      url: null,
+      body: null,
+      ctSource: null
     };
   },
   methods: {
@@ -60,6 +97,26 @@ export default {
     },
     onLogoutClick() {
       this.$libauth.logout();
+    },
+    onPostClick() {
+      this.ctSource = this.$libauth.getCancelToken().source();
+      this.$libauth.postToUrl(this.url, this.body, this.ctSource.token);
+    },
+    onGetClick() {
+      this.ctSource = this.$libauth.getCancelToken().source();
+      this.$libauth.getFromUrl(this.url, this.ctSource.token);
+    },
+    onPutClick() {
+      this.ctSource = this.$libauth.getCancelToken().source();
+      this.$libauth.putToUrl(this.url, this.body, this.ctSource.token);
+    },
+    onDeleteClick() {
+      this.ctSource = this.$libauth.getCancelToken().source();
+      this.$libauth.deleteFromUrl(this.url, this.body, this.ctSource.token);
+    },
+    onCancelClick() {
+      console.log(this.ctSource);
+      this.ctSource.cancel('message is here');
     }
   },
   computed: {

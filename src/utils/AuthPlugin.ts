@@ -47,31 +47,47 @@ const AuthPlugin = {
         var url = store.getters.apiBaseUrl + "/token/profile";
         return this.getFromUrl(url)
       },
-      async getFromUrl(url) {
-        var result = await axios.get(url)
+      async getFromUrl(url, ct = null) {
+        var result = await axios.get(url, { cancelToken: ct})
         .catch (err => {
-          this.handleAuthError(err);
+          if(axios.isCancel(err)) {
+          console.log('Request canceled.');
+          }
+          else this.handleAuthError(err);
         });
         return result;
       },
-      async postToUrl(url, body) {
-        var result = await axios.post(url, body)
+      getCancelToken() {
+        var ct = axios.CancelToken;
+        return ct;
+      },
+      async postToUrl(url, body, ct = null) {
+        var result = await axios.post(url, body , { cancelToken: ct })
         .catch (err => {
-          this.handleAuthError(err);
+          if(axios.isCancel(err)) {
+            console.log('Request canceled.');
+            }
+            else this.handleAuthError(err);
         });
         return result
       },
-      async putToUrl(url, body) {
-        var result = await axios.put(url, body)
+      async putToUrl(url, body, ct = null) {
+        var result = await axios.put(url, body , { cancelToken: ct })
         .catch (err => {
-          this.handleAuthError(err);
+          if(axios.isCancel(err)) {
+            console.log('Request canceled.');
+            }
+            else this.handleAuthError(err);
         });
         return result
       },
-      async deleteFromUrl(url) {
-        var result = await axios.delete(url)
+      async deleteFromUrl(url, ct = null) {
+        var result = await axios.delete(url, { cancelToken: ct })
         .catch (err => {
-          this.handleAuthError(err);
+          if(axios.isCancel(err)) {
+            console.log('Request canceled.');
+            }
+            else this.handleAuthError(err);
         });
         return result
       },
