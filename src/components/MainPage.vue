@@ -2,29 +2,32 @@
   <div>
     <section class="section">
       <h1 class="title">Authentification Test Page</h1>
-      <p>{{authStateString}}</p>
-      <p v-if="info">Server Version{{info}}</p>
+      <p data-test="auth-state">{{authStateString}}</p>
+      <p date-test="auth-sever-version" v-if="info">Server Version{{info}}</p>
     </section>
     <section class="section">
       <h1 class="title">Log In</h1>
       <div class="field">
         <label class="label">Username</label>
         <div class="control">
-          <input class="input" type="text" v-model="username" />
+          <input class="input" type="text" v-model="username" data-test="auth-username"/>
         </div>
       </div>
       <div class="field">
         <label class="label">Password</label>
         <div class="control">
-          <input class="input" type="password" v-model="password" />
+          <input class="input" type="password" v-model="password" data-test="auth-password"/>
         </div>
       </div>
       <div class="field is-grouped">
-        <div class="control">
-          <button class="button is-primary" @click="onLoginClick">Log In</button>
+        <div class="control"  v-if="authStateString != 'AUTH_AUTHENTICATED'">
+          <button class="button is-primary" @click="onLoginClick" data-test="auth-button-login">Log In</button>
         </div>
-        <div class="control">
-          <button class="button is-primary" @click="onInfoClicked">Info</button>
+        <div class="control" v-if="authStateString == 'AUTH_AUTHENTICATED'">
+          <button class="button is-primary" @click="onLogoutClick" data-test="auth-button-logout">Log Out</button>
+        </div>
+        <div class="control" v-if="authStateString == 'AUTH_AUTHENTICATED'">
+          <button class="button is-primary" @click="onInfoClicked" data-test="auth-button-info">Info</button>
         </div>
       </div>
     </section>
@@ -54,6 +57,9 @@ export default {
       this.$libauth.info().then(response => {
         this.info = response.data.ApiServerVersion;
       });
+    },
+    onLogoutClick() {
+      this.$libauth.logout();
     }
   },
   computed: {

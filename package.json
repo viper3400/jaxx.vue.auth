@@ -1,7 +1,7 @@
 {
   "name": "@viper3400/jaxx.vue.auth",
   "repository": "git://github.com/viper3400/jaxx.vue.auth.git",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "private": false,
   "main": "./dist/jaxx-vue-auth.common.js",
   "scripts": {
@@ -11,24 +11,26 @@
     "build-lib": "yarn run genversion && vue-cli-service build --target lib --name jaxx-vue-auth src/libexport.js",
     "genversion": "genversion ./src/plugins/version.js"
   },
-  "engines" : { "node" : ">=0.12" },
+  "engines": {
+    "node": ">=0.12"
+  },
   "files": [
     "dist/*"
   ],
   "dependencies": {
-    "axios": "^0.21.1",
-    "core-js": "^3.11.0",
-    "genversion": "^2.3.1",
-    "vue": "^2.6.12",
+    "axios": "^0.23.0",
+    "core-js": "^3.18.3",
+    "genversion": "^3.0.1",
+    "vue": "^2.6.14",
     "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.5.12",
-    "@vue/cli-plugin-eslint": "~4.5.12",
-    "@vue/cli-service": "~4.5.12",
+    "@vue/cli-plugin-babel": "~4.5.14",
+    "@vue/cli-plugin-eslint": "~4.5.14",
+    "@vue/cli-service": "~4.5.14",
     "babel-eslint": "^10.1.0",
-    "eslint": "^7.25.0",
-    "eslint-plugin-vue": "^7.9.0",
-    "vue-template-compiler": "^2.6.12"
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^7.19.1",
+    "vue-template-compiler": "^2.6.14"
   }
 }
